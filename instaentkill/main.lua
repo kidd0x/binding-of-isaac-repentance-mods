@@ -3,7 +3,7 @@ local game = Game()
 
 local function OnEntityTakeDamage(_, entity, amount, damageFlags, damageSource, damageCountdownFrames)
     if entity.Type == EntityType.ENTITY_POOP or entity.Type == EntityType.ENTITY_FIREPLACE then
-        if damageSource.Type == EntityType.ENTITY_TEAR or damageSource.Type == EntityType.ENTITY_LASER then
+        if damageSource.Type == EntityType.ENTITY_TEAR then
             entity:Die()
         end
     end
