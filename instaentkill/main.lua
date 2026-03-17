@@ -14,3 +14,5 @@ local function OnEntityTakeDamage(_, entity, amount, damageFlags, damageSource, 
         end
     end
 end
+
+mod:AddCallback(ModCallbacks.MC_ENTITY_TAKE_DMG, OnEntityTakeDamage)
