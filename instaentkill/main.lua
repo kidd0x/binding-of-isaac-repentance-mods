@@ -1,21 +1,16 @@
 local mod = RegisterMod("OneShotPoopsAndFires", 1)
+local game = Game()
 
-local function OnEntityTakeDamage(entity, amount, damageFlags, damageSource, damageCountdownFrames)
-    if entity:IsDead() then return end
-
-    if entity.Type == EntityType.ENTITY_POOP then
-        entity:Die()
-
-    elseif entity.Type == EntityType.ENTITY_FIREPLACE then
-        if entity.Variant == 1 then
-            -- blue fire moare la hit: mai putine bombe de folosit :)
+local function OnEntityTakeDamage(_, entity, amount, damageFlags, damageSource, damageCountdownFrames)
+    if entity.Type == EntityType.ENTITY_POOP or entity.Type == EntityType.ENTITY_FIREPLACE then
+        if entity.Type == EntityType.ENTITY_FIREPLACE and entity.Variant == 1 then
             if damageFlags & DamageFlag.DAMAGE_EXPLOSION > 0 then
                 entity:Die()
             end
         else
-            entity:Die()
+            if damageSource.Type == EntityType.ENTITY_TEAR or damageSource.Type == EntityType.ENTITY_KNIFE or damageSource.Type == EntityType.ENTITY_LASER then
+                entity:Die()
+            end
         end
     end
 end
-
-mod:AddCallback(ModCallbacks.MC_ENTITY_TAKE_DMG, OnEntityTakeDamage)
